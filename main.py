@@ -33,7 +33,7 @@ def getAddressData():
     for i in range(27):
         print("Adderss: {}".format(address.search(i)))
 
-getDistanceData()
+#getDistanceData()
 print(distanceBetween(distance, address, 'HUB', '1060 Dalton Ave S'))
 '''
 print("Distance: {}".format(distance.search(0, 0)))
@@ -41,8 +41,8 @@ print("Distance: {}".format(distance.search(0, 25)))
 print("Distance: {}".format(distance.search(3, 0)))
 print("Distance: {}".format(distance.search(10, 11)))
 '''
-getPackageData()
-getAddressData()
+#getPackageData()
+#getAddressData()
 print("Adderss: {}".format(address.search(3)))
 print("Adderss: {}".format(address.search(24)))
 
@@ -50,17 +50,19 @@ print("Adderss: {}".format(address.search(24)))
 
 truck1 = Truck(1)
 truckList = truck1.truckLoadPackages(distance, address, myHash)
-print(len(truckList))
+print(truckList)
+for i in range(16):
+    print(truckList[i])
 print(minDistanceFrom(distance, address, 'HUB', truckList))
 truck2 = Truck(2)
 
-
+'''
 print("\nGreedy Algorithm: Min Expenses => Max Profits")
 greedyAlgorithmMinExpenses(102)  # $102.00 budget
 greedyAlgorithmMinExpenses(94)  # $94.00 budget
 greedyAlgorithmMinExpenses(71)  # $71.00 budget
 greedyAlgorithmMinExpenses(200)  # $200.00 budget
-
+'''
 
 # Dijkstra shortest path main
 # Program to find shortest paths from vertex A.
@@ -506,6 +508,7 @@ def dijkstraAlgorithmShortestPath():
 
     # Get the vertices by the label for convenience; display shortest path for each vertex
     # from vertex_1.
+    
     print("\nDijkstra shortest path:")
     for v in g.adjacency_list:
         if v.pred_vertex is None and v is not vertex_3:
@@ -514,4 +517,5 @@ def dijkstraAlgorithmShortestPath():
             print("3 to %s ==> %s (total distance: %g)" % (v.label, get_shortest_path(vertex_3, v), v.distance))
 
 
-dijkstraAlgorithmShortestPath()
+
+# dijkstraAlgorithmShortestPath()

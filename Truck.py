@@ -10,12 +10,14 @@ class Truck():
         for j in range(40):
             packageQue.append(packageList.search(j+1))
         i = 0
+        lastAddress = 'HUB'
         while i < 16:
-            minDistance = minDistanceFrom(distance, address, 'HUB', packageQue)
+            minDistance = minDistanceFrom(distance, address, lastAddress, packageQue)
             for package in packageQue:
                 if package.address == minDistance:
+                    lastAddress = package.address
                     truckPackages.append(package)
-                    packageQue.pop(package.ID)
+                    packageQue.remove(package)
                     break
             i += 1
         return truckPackages
