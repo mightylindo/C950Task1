@@ -49,11 +49,12 @@ print("Adderss: {}".format(address.search(24)))
 
 
 truck1 = Truck(1)
-truckList = truck1.truckLoadPackages(distance, address, myHash)
+truck2 = Truck(2)
+truckList = truck1.truckLoadPackages(distance, address, myHash, truck1.ID)
 print(truckList)
 for i in range(16):
     print(truckList[i])
-print(minDistanceFrom(distance, address, 'HUB', truckList))
+# print(minDistanceFrom(distance, address, 'HUB', truckList))
 truck2 = Truck(2)
 
 '''
