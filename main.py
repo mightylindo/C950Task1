@@ -34,7 +34,7 @@ def getAddressData():
         print("Adderss: {}".format(address.search(i)))
 
 #getDistanceData()
-print(distanceBetween(distance, address, 'HUB', '1060 Dalton Ave S'))
+#print(distanceBetween(distance, address, 'HUB', '1060 Dalton Ave S'))
 '''
 print("Distance: {}".format(distance.search(0, 0)))
 print("Distance: {}".format(distance.search(0, 25)))
@@ -43,19 +43,30 @@ print("Distance: {}".format(distance.search(10, 11)))
 '''
 #getPackageData()
 #getAddressData()
-print("Adderss: {}".format(address.search(3)))
-print("Adderss: {}".format(address.search(24)))
+# print("Adderss: {}".format(address.search(3)))
+# print("Adderss: {}".format(address.search(24)))
 
 
-
+packageQue = []
+for j in range(40):
+    packageQue.append(myHash.search(j+1))
 truck1 = Truck(1)
 truck2 = Truck(2)
-truckList = truck1.truckLoadPackages(distance, address, myHash, truck1.ID)
-print(truckList)
+truck3 = Truck(3)
+truckList1 = truck1.truckLoadPackages(distance, address, packageQue, truck1.ID)
+print('Truck 1 list: ')
 for i in range(16):
-    print(truckList[i])
+    print('Package', i+1,': ', truckList1[i])
+truckList2 = truck2.truckLoadPackages(distance, address, packageQue, truck2.ID)
+print('Truck 2 list: ')
+for i in range(16):
+    print('Package', i+1,': ', truckList2[i])
+truckList3 = truck3.truckLoadPackages(distance, address, packageQue, truck3.ID)
+print('Truck 3 list: ')
+for i in range(16):
+    print('Package', i+1,': ', truckList3[i])
 # print(minDistanceFrom(distance, address, 'HUB', truckList))
-truck2 = Truck(2)
+
 
 '''
 print("\nGreedy Algorithm: Min Expenses => Max Profits")
