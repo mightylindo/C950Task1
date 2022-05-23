@@ -50,9 +50,9 @@ print("Distance: {}".format(distance.search(10, 11)))
 packageQue = []
 for j in range(40):
     packageQue.append(myHash.search(j+1))
-truck1 = Truck(1)
-truck2 = Truck(2)
-truck3 = Truck(3)
+truck1 = Truck(1, 0)
+truck2 = Truck(2, 0)
+truck3 = Truck(3, 0)
 truckList1 = truck1.truckLoadPackages(distance, address, packageQue, truck1.ID)
 print('Truck 1 list: ')
 for i in range(16):
@@ -66,8 +66,17 @@ print('Truck 3 list: ')
 for i in range(16):
     print('Package', i+1,': ', truckList3[i])
 # print(minDistanceFrom(distance, address, 'HUB', truckList))
-
-
+truck1Miles = truck1.truckDeliverPackages(distance, address, truckList1, truck1)
+truck1.miles = truck1Miles
+truck2Miles = truck2.truckDeliverPackages(distance, address, truckList2, truck2)
+truck2.miles = truck2Miles
+truck3Miles = truck3.truckDeliverPackages(distance, address, truckList3, truck3)
+truck3.miles = truck3Miles
+print(truck1Miles)
+print(truck2Miles)
+print(truck3Miles)
+totalMiles = truck1.miles + truck2.miles + truck3.miles
+print(totalMiles, 'Miles')
 '''
 print("\nGreedy Algorithm: Min Expenses => Max Profits")
 greedyAlgorithmMinExpenses(102)  # $102.00 budget
