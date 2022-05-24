@@ -1,4 +1,7 @@
+import datetime
+
 from DistanceData import *
+from Dijkstra import *
 # This is a simple class that creates a truck object
 class Truck():
     def __init__(self, ID, miles):
@@ -32,16 +35,21 @@ class Truck():
         return truckPackages
 
 
-    def truckDeliverPackages(self, distance, address, truckList, truck):
+    def truckDeliverPackages(self, distance, address, truckList, truck, startTime):
         route = []
         packageQue = truckList
         count = 15
+        time = startTime
         while count > 0:
             if packageQue[count] == '':
                 packageQue.pop(count)
             count = count - 1
         i = 0
         lastAddress = 'HUB'
+        # need to remove the extra code below as teh truck list is already sorted by closest to the HUB.
+        # Need to create a graph of all 16 packages
+        # need to find the shortest path possible while visiting every path
+
         while i < len(packageQue):
             if len(packageQue) > 0:
                 minDistance = minDistanceFrom(distance, address, lastAddress, packageQue)
@@ -59,8 +67,14 @@ class Truck():
             for i in route:
                 addMiles = distanceBetween(distance, address, startAddress, i.address)
                 totalTruckMiles = totalTruckMiles + addMiles
+                timeToDeliver = datetime.timedelta(hours=totalTruckMiles/18)
+                #print(timeToDeliver)
+                #print(startTime)
+                deliveryTime = startTime + timeToDeliver #this works just need to find a way to pass it to the hashtable
+                i.deliveryStatus = deliveryTime
+                #print(deliveryTime)
                 startAddress = i.address
                 route.remove(i)
+        if truck.ID == 1:
+             totalTruckMiles = totalTruckMiles + distanceBetween(distance, address, startAddress, 'HUB')
         return totalTruckMiles
-        #if truck.ID == 1:
-            # truck.miles = truck.miles + distanceBetween(distance, address, startAddress, 'HUB')

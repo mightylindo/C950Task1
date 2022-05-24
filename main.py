@@ -1,4 +1,5 @@
 # This is the main function for this project.
+import datetime
 from ChainingHashTable import *
 from Package import *
 from Greedy import *
@@ -47,6 +48,8 @@ print("Distance: {}".format(distance.search(10, 11)))
 # print("Adderss: {}".format(address.search(24)))
 
 
+time_obj = datetime.datetime(2022,5,24,8,0,0,0)
+print(time_obj)
 packageQue = []
 for j in range(40):
     packageQue.append(myHash.search(j+1))
@@ -54,6 +57,7 @@ truck1 = Truck(1, 0)
 truck2 = Truck(2, 0)
 truck3 = Truck(3, 0)
 truckList1 = truck1.truckLoadPackages(distance, address, packageQue, truck1.ID)
+print('Truck 1 list: ')
 print('Truck 1 list: ')
 for i in range(16):
     print('Package', i+1,': ', truckList1[i])
@@ -66,11 +70,11 @@ print('Truck 3 list: ')
 for i in range(16):
     print('Package', i+1,': ', truckList3[i])
 # print(minDistanceFrom(distance, address, 'HUB', truckList))
-truck1Miles = truck1.truckDeliverPackages(distance, address, truckList1, truck1)
+truck1Miles = truck1.truckDeliverPackages(distance, address, truckList1, truck1, time_obj)
 truck1.miles = truck1Miles
-truck2Miles = truck2.truckDeliverPackages(distance, address, truckList2, truck2)
+truck2Miles = truck2.truckDeliverPackages(distance, address, truckList2, truck2, time_obj)
 truck2.miles = truck2Miles
-truck3Miles = truck3.truckDeliverPackages(distance, address, truckList3, truck3)
+truck3Miles = truck3.truckDeliverPackages(distance, address, truckList3, truck3, time_obj)
 truck3.miles = truck3Miles
 print(truck1Miles)
 print(truck2Miles)
@@ -122,29 +126,7 @@ def dijkstraAlgorithmShortestPath():
     vertex_15 = Vertex("15")
     g.add_vertex(vertex_15)
     vertex_16 = Vertex("16")
-    g.add_vertex(vertex_16)
-    vertex_17 = Vertex("17")
-    g.add_vertex(vertex_17)
-    vertex_18 = Vertex("18")
-    g.add_vertex(vertex_18)
-    vertex_19 = Vertex("19")
-    g.add_vertex(vertex_19)
-    vertex_20 = Vertex("20")
-    g.add_vertex(vertex_20)
-    vertex_21 = Vertex("21")
-    g.add_vertex(vertex_21)
-    vertex_22 = Vertex("22")
-    g.add_vertex(vertex_22)
-    vertex_23 = Vertex("23")
-    g.add_vertex(vertex_23)
-    vertex_24 = Vertex("24")
-    g.add_vertex(vertex_24)
-    vertex_25 = Vertex("25")
-    g.add_vertex(vertex_25)
-    vertex_26 = Vertex("26")
-    g.add_vertex(vertex_26)
-    vertex_27 = Vertex("27")
-    g.add_vertex(vertex_27)
+
 
     # add 1 Edges
     g.add_undirected_edge(vertex_1, vertex_2, 7.2)
