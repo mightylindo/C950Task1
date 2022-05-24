@@ -70,17 +70,18 @@ print('Truck 3 list: ')
 for i in range(16):
     print('Package', i+1,': ', truckList3[i])
 # print(minDistanceFrom(distance, address, 'HUB', truckList))
-truck1Miles = truck1.truckDeliverPackages(distance, address, truckList1, truck1, time_obj)
+truck1Miles = truck1.truckDeliverPackages(distance, address, truckList1, truck1, time_obj, myHash)
 truck1.miles = truck1Miles
-truck2Miles = truck2.truckDeliverPackages(distance, address, truckList2, truck2, time_obj)
+truck2Miles = truck2.truckDeliverPackages(distance, address, truckList2, truck2, time_obj, myHash)
 truck2.miles = truck2Miles
-truck3Miles = truck3.truckDeliverPackages(distance, address, truckList3, truck3, time_obj)
+truck3Miles = truck3.truckDeliverPackages(distance, address, truckList3, truck3, time_obj, myHash)
 truck3.miles = truck3Miles
 print(truck1Miles)
 print(truck2Miles)
 print(truck3Miles)
 totalMiles = truck1.miles + truck2.miles + truck3.miles
 print(totalMiles, 'Miles')
+getPackageData()
 '''
 print("\nGreedy Algorithm: Min Expenses => Max Profits")
 greedyAlgorithmMinExpenses(102)  # $102.00 budget
