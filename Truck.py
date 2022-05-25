@@ -18,13 +18,49 @@ class Truck():
                 minDistance = minDistanceFrom(distance, address, lastAddress, packageList)
             for package in packageList:
                 if package.address == minDistance:
-                    '''
-                    if truck == 2:
-                        if package.ID == 3 or 18 or 36 or 38: # this is not working
-                            packageValid = True
-                    '''
-                    packageValid = True
-                    if packageValid == True:
+                    if package.specialNote == '':
+                        lastAddress = package.address
+                        # truckPackages.append(package)
+                        truckPackages.insert(i, package)
+                        truckPackages.pop(16)
+                        packageList.remove(package)
+                        break
+                    elif package.specialNote == 'Must be delivered with 15, 19':
+                        lastAddress = package.address
+                        # truckPackages.append(package)
+                        truckPackages.insert(i, package)
+                        truckPackages.pop(16)
+                        packageList.remove(package)
+                        break
+                    elif package.specialNote == 'Must be delivered with 13, 19':
+                        lastAddress = package.address
+                        # truckPackages.append(package)
+                        truckPackages.insert(i, package)
+                        truckPackages.pop(16)
+                        packageList.remove(package)
+                        break
+                    elif package.specialNote == 'Must be delivered with 13, 15':
+                        lastAddress = package.address
+                        # truckPackages.append(package)
+                        truckPackages.insert(i, package)
+                        truckPackages.pop(16)
+                        packageList.remove(package)
+                        break
+                    elif package.specialNote == 'Delayed on flight---will not arrive to depot until 9:05 am':
+                        lastAddress = package.address
+                        # truckPackages.append(package)
+                        truckPackages.insert(i, package)
+                        truckPackages.pop(16)
+                        packageList.remove(package)
+                        break
+                    elif package.specialNote == 'Wrong address listed':
+                        lastAddress = package.address
+                        # truckPackages.append(package)
+                        truckPackages.insert(i, package)
+                        truckPackages.pop(16)
+                        packageList.remove(package)
+                        break
+                    elif package.specialNote == 'Can only be on truck 2':
                         lastAddress = package.address
                         # truckPackages.append(package)
                         truckPackages.insert(i, package)
@@ -81,7 +117,7 @@ class Truck():
                     if deadline > deliveryTime:
                         package.deliveryStatus = "Delivered on time at: " + str(deliveryTime)
                     elif deadline < deliveryTime:
-                        package.deliveryStatus = "LATE delivery at:" + str(deliveryTime)
+                        package.deliveryStatus = "LATE delivery at: " + str(deliveryTime)
                 elif package.deadline == '10:30 AM':
                     deadline = datetime.datetime(2022, 5, 24, 10, 30, 0, 0)
                     if deadline > deliveryTime:
