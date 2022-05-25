@@ -3,18 +3,20 @@ import csv
 
 
 class Package:
-    def __init__(self, ID, address, deadline, city, zipCode, weight, deliveryStatus):
+    def __init__(self, ID, address, city, state, zipCode, deadline,  weight, specialNote, deliveryStatus):
         self.ID = ID
         self.address = address
-        self.deadline = deadline
+        self.state = state
         self.city = city
         self.zipCode = zipCode
+        self.deadline = deadline
         self.weight = weight
+        self.specialNote = specialNote
         self.deliveryStatus = deliveryStatus
 
     # This is an overwrite so that print(Package) will print the values rather than the object reference
     def __str__(self):
-        return "%s, %s, %s, %s, %s, %s, %s" % (self.ID, self.address, self.deadline, self.city, self.zipCode, self.weight, self.deliveryStatus)
+        return "%s, %s, %s, %s, %s, %s, %s, %s, %s" % (self.ID, self.address, self.city, self.state, self.zipCode, self.deadline, self.weight, self.specialNote, self.deliveryStatus)
 
     def loadPackage(fileName, myHash):
         with open(fileName) as WGUPSPackage:
@@ -24,11 +26,13 @@ class Package:
             for package in packageData:
                 pID = int(package[0])
                 pAddress = package[1]
-                pDeadline = package[2]
-                pCity = package[3]
+                pCity = package[2]
+                pState = package[3]
                 pZipCode = package[4]
-                pWeight = package[5]
-                dStatus = ''
+                pDeadline = package[5]
+                pWeight = package[6]
+                pSpecial = package[7]
+                dStatus = 'At the HUB'
 
-                p = Package(pID, pAddress, pDeadline, pCity, pZipCode, pWeight, dStatus)
+                p = Package(pID, pAddress, pCity, pState, pZipCode, pDeadline, pWeight, pSpecial, dStatus)
                 myHash.insert(pID, p)

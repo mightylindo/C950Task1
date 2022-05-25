@@ -18,6 +18,15 @@ def getPackageData():
         print("Package: {}".format(myHash.search(i+1)))
 
 
+def getSpecificPackage(ID):
+    packageQue = []
+    for j in range(40):
+        packageQue.append(myHash.search(j + 1))
+    for package in packageQue:
+        if package.ID == ID:
+            return package
+    return None
+
 def getAddressData():
     for i in range(27):
         print("Adderss: {}".format(address.search(i)))
@@ -34,7 +43,6 @@ def loadTruckLists():
 
 
 def deliverPackages():
-    loadTruckLists()[0]
     truck1Miles = truck1.truckDeliverPackages(distance, address, loadTruckLists()[0], truck1, time_obj, myHash)
     truck1.miles = truck1Miles
     truck2Miles = truck2.truckDeliverPackages(distance, address, loadTruckLists()[1], truck2, time_obj, myHash)
@@ -56,9 +64,6 @@ Address.load_address_data('address.csv', address)
 
 time_obj = datetime.datetime(2022,5,24,8,0,0,0)
 
-packageQue = []
-for j in range(40):
-    packageQue.append(myHash.search(j+1))
 truck1 = Truck(1, 0)
 truck2 = Truck(2, 0)
 truck3 = Truck(3, 0)
@@ -68,9 +73,10 @@ while(isExit):
     print('\nOptions:')
     print('1. Get Truck Lists')
     print('2. Get Total Miles')
-    print('3. Get Package info')
-    print('4. Exit Program')
-    option = input('Chose an option (1,2,3, or 4): ')
+    print('3. Get All Package info')
+    print('4. Get Specific Package')
+    print('5. Exit Program')
+    option = input('Chose an option (1,2,3,4 or 5): ')
     if option =='1':
         loadTruckLists()
         truckList1 = loadTruckLists()[0]
@@ -93,6 +99,10 @@ while(isExit):
         deliverPackages()
         getPackageData()
     elif option == '4':
+        secondOption = int(input('Please input package ID: '))
+        print('ID, Address, City, State, Zipcode, Delivery Deadline, Weight, Special Note, Status')
+        print(getSpecificPackage(secondOption))
+    elif option == '5':
         isExit = False
     else:
         print('Please select an option 1-4')
