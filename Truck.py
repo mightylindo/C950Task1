@@ -70,7 +70,24 @@ class Truck():
                 timeToDeliver = datetime.timedelta(hours=totalTruckMiles/18)
                 deliveryTime = startTime + timeToDeliver #this works just need to find a way to pass it to the hashtable
                 package = myHash.search(i.ID)
-                package.deliveryStatus = deliveryTime
+                if package.deadline == 'EOD':
+                    deadline = datetime.datetime(2022,5,24,17,0,0,0)
+                    if deadline > deliveryTime:
+                        package.deliveryStatus = "Delivered on time at: " + str(deliveryTime)
+                    elif deadline < deliveryTime:
+                        package.deliveryStatus = "LATE delivery at: " + str(deliveryTime)
+                elif package.deadline == '9:00 AM':
+                    deadline = datetime.datetime(2022, 5, 24, 9, 0, 0, 0)
+                    if deadline > deliveryTime:
+                        package.deliveryStatus = "Delivered on time at: " + str(deliveryTime)
+                    elif deadline < deliveryTime:
+                        package.deliveryStatus = "LATE delivery at: " + str(deliveryTime)
+                elif package.deadline == '10:30 AM':
+                    deadline = datetime.datetime(2022, 5, 24, 10, 30, 0, 0)
+                    if deadline > deliveryTime:
+                        package.deliveryStatus = "Delivered on time at: " + str(deliveryTime)
+                    elif deadline < deliveryTime:
+                        package.deliveryStatus = "LATE delivery at: " + str(deliveryTime)
                 startAddress = i.address
                 route.remove(i)
         if truck.ID == 1:
