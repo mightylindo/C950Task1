@@ -81,7 +81,7 @@ class Truck():
                     if deadline > deliveryTime:
                         package.deliveryStatus = "Delivered on time at: " + str(deliveryTime)
                     elif deadline < deliveryTime:
-                        package.deliveryStatus = "LATE delivery at: " + str(deliveryTime)
+                        package.deliveryStatus = "LATE delivery at:" + str(deliveryTime)
                 elif package.deadline == '10:30 AM':
                     deadline = datetime.datetime(2022, 5, 24, 10, 30, 0, 0)
                     if deadline > deliveryTime:
