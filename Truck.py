@@ -68,12 +68,9 @@ class Truck():
                 addMiles = distanceBetween(distance, address, startAddress, i.address)
                 totalTruckMiles = totalTruckMiles + addMiles
                 timeToDeliver = datetime.timedelta(hours=totalTruckMiles/18)
-                #print(timeToDeliver)
-                #print(startTime)
                 deliveryTime = startTime + timeToDeliver #this works just need to find a way to pass it to the hashtable
                 package = myHash.search(i.ID)
                 package.deliveryStatus = deliveryTime
-                # print(deliveryTime)
                 startAddress = i.address
                 route.remove(i)
         if truck.ID == 1:
