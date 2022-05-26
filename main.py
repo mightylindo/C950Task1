@@ -36,9 +36,9 @@ def loadTruckLists():
     packageQue = []
     for j in range(40):
         packageQue.append(myHash.search(j+1))
-    truckList1 = truck1.truckLoadPackages(distance, address, packageQue, truck1.ID)
-    truckList2 = truck2.truckLoadPackages(distance, address, packageQue, truck2.ID)
-    truckList3 = truck3.truckLoadPackages(distance, address, packageQue, truck3.ID)
+    truckList1 = truck1.truckLoadPackages(distance, address, packageQue, truck1.ID, myHash)
+    truckList2 = truck2.truckLoadPackages(distance, address, packageQue, truck2.ID, myHash)
+    truckList3 = truck3.truckLoadPackages(distance, address, packageQue, truck3.ID, myHash)
     return truckList1, truckList2, truckList3
 
 

@@ -8,8 +8,9 @@ class Truck():
         self.ID = ID
         self.miles = miles
 
-    def truckLoadPackages(self, distance, address, packageList, truck):
+    def truckLoadPackages(self, distance, address, packageList, truck, myHash):
         truckPackages = ['','','','','','','','','','','','','','','','']
+        replacmentList = []
         i = 0
         lastAddress = 'HUB'
         while i < len(truckPackages):
@@ -19,6 +20,8 @@ class Truck():
             for package in packageList:
                 if package.address == minDistance:
                     if package.specialNote == '':
+                       # pack = myHash.search(package.ID)
+                       # pack.deliveryStatus = 'en Route'
                         lastAddress = package.address
                         # truckPackages.append(package)
                         truckPackages.insert(i, package)
@@ -47,27 +50,37 @@ class Truck():
                         packageList.remove(package)
                         break
                     elif package.specialNote == 'Delayed on flight---will not arrive to depot until 9:05 am':
-                        lastAddress = package.address
+                        # lastAddress = package.address
                         # truckPackages.append(package)
-                        truckPackages.insert(i, package)
-                        truckPackages.pop(16)
+                        # truckPackages.insert(i, package)
+                        # truckPackages.pop(16)
+                        i = i - 1
                         packageList.remove(package)
                         break
                     elif package.specialNote == 'Wrong address listed':
-                        lastAddress = package.address
+                        # lastAddress = package.address
                         # truckPackages.append(package)
-                        truckPackages.insert(i, package)
-                        truckPackages.pop(16)
+                        # truckPackages.insert(i, package)
+                        # truckPackages.pop(16)
+                        i = i - 1
                         packageList.remove(package)
                         break
                     elif package.specialNote == 'Can only be on truck 2':
-                        lastAddress = package.address
-                        # truckPackages.append(package)
-                        truckPackages.insert(i, package)
-                        truckPackages.pop(16)
-                        packageList.remove(package)
-                        break
+                        if truck == 2:
+                            lastAddress = package.address
+                            # truckPackages.append(package)
+                            truckPackages.insert(i, package)
+                            truckPackages.pop(16)
+                            packageList.remove(package)
+                            break
+                        else:
+                            i = i - 1
+                            replacmentList.append(package)
+                            packageList.remove(package)
+                            break
             i += 1
+        for package in replacmentList:
+            packageList.append(package)
         return truckPackages
 
 
