@@ -83,10 +83,7 @@ class Truck():
                         packageList.remove(package)
                         break
                     elif package.specialNote == '':
-                       # pack = myHash.search(package.ID)
-                       # pack.deliveryStatus = 'en Route'
                         lastAddress = package.address
-                        # truckPackages.append(package)
                         truckPackages.insert(i, package)
                         truckPackages.pop(16)
                         packageList.remove(package)
@@ -109,7 +106,6 @@ class Truck():
                     elif package.specialNote == 'Delayed on flight---will not arrive to depot until 9:05 am':
                         if truck == 3:
                             lastAddress = package.address
-                            # truckPackages.append(package)
                             truckPackages.insert(i, package)
                             truckPackages.pop(16)
                             packageList.remove(package)
@@ -122,7 +118,6 @@ class Truck():
                     elif package.specialNote == 'Wrong address listed':
                         if truck == 3:
                             lastAddress = package.address
-                            # truckPackages.append(package)
                             truckPackages.insert(i, package)
                             truckPackages.pop(16)
                             packageList.remove(package)
@@ -152,10 +147,20 @@ class Truck():
         # need to remove the extra code below as teh truck list is already sorted by closest to the HUB.
         # Need to create a graph of all 16 packages
         # need to find the shortest path possible while visiting every path
-
         while i < len(packageQue):
             if len(packageQue) > 0:
                 minDistance = minDistanceFrom(distance, address, lastAddress, packageQue)
+            for package in packageQue:
+                if package.deadline == '9:00 AM':
+                    lastAddress = package.address
+                    route.append(package)
+                    packageQue.remove(package)
+                    break
+                elif package.deadline == '10:30 AM':
+                    lastAddress = package.address
+                    route.append(package)
+                    packageQue.remove(package)
+                    break
             for package in packageQue:
                 if package.address == minDistance:
                     lastAddress = package.address
@@ -163,7 +168,6 @@ class Truck():
                     packageQue.remove(package)
                     break
         i += 1
-        # need to add code that will step through the route and have the truck visit each keeping track of total miles and time
         startAddress = 'HUB'
         totalTruckMiles = truck.miles
         while len(route) > 0:
