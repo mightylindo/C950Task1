@@ -8,18 +8,95 @@ class Truck():
         self.ID = ID
         self.miles = miles
 
-    def truckLoadPackages(self, distance, address, packageList, truck, myHash):
+    def truckLoadPackages(self, distance, address, packageList, truck, myHash, trip):
         truckPackages = ['','','','','','','','','','','','','','','','']
         replacmentList = []
         groupedList = []
         i = 0
         lastAddress = 'HUB'
+        if truck == 1:
+            if trip == 1:
+                for k in range(40):
+                    p = myHash.search(k + 1)
+                    if p.ID == 15:
+                        groupedList.insert(0, p)
+                    if p.ID == 16:
+                        groupedList.insert(1, p)
+                    if p.ID == 14:
+                        groupedList.insert(2, p)
+                    if p.ID == 19:
+                        groupedList.insert(3, p)
+                    if p.ID == 20:
+                        groupedList.insert(4, p)
+                    if p.ID == 40:
+                        groupedList.insert(5, p)
+                    if p.ID == 1:
+                        groupedList.insert(6, p)
+                    if p.ID == 13:
+                        groupedList.insert(7, p)
+                truckPackages.insert(0, groupedList[0])
+                truckPackages.pop(16)
+                truckPackages.insert(1, groupedList[1])
+                truckPackages.pop(16)
+                truckPackages.insert(2, groupedList[2])
+                truckPackages.pop(16)
+                truckPackages.insert(3, groupedList[3])
+                truckPackages.pop(16)
+                truckPackages.insert(4, groupedList[4])
+                truckPackages.pop(16)
+                truckPackages.insert(5, groupedList[5])
+                truckPackages.pop(16)
+                truckPackages.insert(6, groupedList[6])
+                truckPackages.pop(16)
+                truckPackages.insert(7, groupedList[7])
+                truckPackages.pop(16)
+                return truckPackages
+            else:
+                for k in range(40):
+                    p = myHash.search(k + 1)
+                    if p.ID == 6:
+                        groupedList.insert(0, p)
+                    if p.ID == 25:
+                        groupedList.insert(1, p)
+                    if p.ID == 28:
+                        groupedList.insert(2, p)
+                    if p.ID == 32:
+                        groupedList.insert(3, p)
+                    if p.ID == 9:
+                        groupedList.insert(4, p)
+                truckPackages.insert(0, groupedList[0])
+                truckPackages.pop(16)
+                truckPackages.insert(1, groupedList[1])
+                truckPackages.pop(16)
+                truckPackages.insert(2, groupedList[2])
+                truckPackages.pop(16)
+                truckPackages.insert(3, groupedList[3])
+                truckPackages.pop(16)
+                truckPackages.insert(4, groupedList[4])
+                truckPackages.pop(16)
+                i = 5
         if truck == 2:
             truck2Packages = []
             for j in range(40):
                 p = myHash.search(j+1)
-                if p.specialNote == 'Can only be on truck 2':
-                    truck2Packages.append(p)
+                if p.ID == 29:
+                    truck2Packages.insert(0, p)
+                if p.ID == 30:
+                    truck2Packages.insert(1, p)
+                if p.ID == 31:
+                    truck2Packages.insert(2, p)
+                if p.ID == 34:
+                    truck2Packages.insert(3, p)
+                if p.ID == 37:
+                    truck2Packages.insert(4, p)
+                if p.ID == 38:
+                    truck2Packages.insert(5, p)
+                if p.ID == 36:
+                    truck2Packages.insert(6, p)
+                if p.ID == 3:
+                    truck2Packages.insert(7, p)
+                if p.ID == 18:
+                    truck2Packages.insert(8, p)
             truckPackages.insert(0, truck2Packages[0])
             truckPackages.pop(16)
             truckPackages.insert(1, truck2Packages[1])
@@ -28,35 +105,17 @@ class Truck():
             truckPackages.pop(16)
             truckPackages.insert(3, truck2Packages[3])
             truckPackages.pop(16)
-            i = 4
-        if truck == 1:
-            for k in range(40):
-                p = myHash.search(k + 1)
-                if p.ID == 13:
-                    groupedList.append(p)
-                if p.ID == 15:
-                    groupedList.append(p)
-                if p.ID == 19:
-                    groupedList.append(p)
-                if p.specialNote == 'Must be delivered with 15, 19':
-                    groupedList.append(p)
-                if p.specialNote == 'Must be delivered with 13, 19':
-                    groupedList.append(p)
-                if p.specialNote == 'Must be delivered with 13, 15':
-                    groupedList.append(p)
-            truckPackages.insert(0, groupedList[0])
+            truckPackages.insert(4, truck2Packages[4])
             truckPackages.pop(16)
-            truckPackages.insert(1, groupedList[1])
+            truckPackages.insert(5, truck2Packages[5])
             truckPackages.pop(16)
-            truckPackages.insert(2, groupedList[2])
+            truckPackages.insert(6, truck2Packages[6])
             truckPackages.pop(16)
-            truckPackages.insert(3, groupedList[3])
+            truckPackages.insert(7, truck2Packages[7])
             truckPackages.pop(16)
-            truckPackages.insert(4, groupedList[4])
+            truckPackages.insert(8, truck2Packages[8])
             truckPackages.pop(16)
-            truckPackages.insert(5, groupedList[5])
-            truckPackages.pop(16)
-            i = 6
+            i = 9
         while i < len(truckPackages):
             if len(packageList) > 0:
                 minDistance = minDistanceFrom(distance, address, lastAddress, packageList)
@@ -150,17 +209,6 @@ class Truck():
         while i < len(packageQue):
             if len(packageQue) > 0:
                 minDistance = minDistanceFrom(distance, address, lastAddress, packageQue)
-            for package in packageQue:
-                if package.deadline == '9:00 AM':
-                    lastAddress = package.address
-                    route.append(package)
-                    packageQue.remove(package)
-                    break
-                elif package.deadline == '10:30 AM':
-                    lastAddress = package.address
-                    route.append(package)
-                    packageQue.remove(package)
-                    break
             for package in packageQue:
                 if package.address == minDistance:
                     lastAddress = package.address

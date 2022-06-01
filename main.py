@@ -36,10 +36,10 @@ def loadTruckLists():
     packageQue = []
     for j in range(40):
         packageQue.append(myHash.search(j+1))
-    truckList1 = truck1.truckLoadPackages(distance, address, packageQue, truck1.ID, myHash)
-    truckList2 = truck2.truckLoadPackages(distance, address, packageQue, truck2.ID, myHash)
-    truckList3 = truck3.truckLoadPackages(distance, address, packageQue, truck3.ID, myHash)
-    return truckList1, truckList2, truckList3
+    truckList1 = truck1.truckLoadPackages(distance, address, packageQue, truck1.ID, myHash, 1)
+    truckList2 = truck2.truckLoadPackages(distance, address, packageQue, truck2.ID, myHash, 1)
+    truckList = truck1.truckLoadPackages(distance, address, packageQue, truck1.ID, myHash, 2)
+    return truckList1, truckList2, truckList
 
 
 def deliverPackages():
@@ -67,6 +67,7 @@ time_obj = datetime.datetime(2022,5,24,8,0,0,0)
 truck1 = Truck(1, 0)
 truck2 = Truck(2, 0)
 truck3 = Truck(3, 0)
+
 
 isExit = True
 while(isExit):
