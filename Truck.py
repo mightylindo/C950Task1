@@ -1,5 +1,5 @@
 import datetime
-
+from Dijkstra import *
 from DistanceData import *
 from Dijkstra import *
 # This is a simple class that creates a truck object
@@ -16,6 +16,7 @@ class Truck():
         lastAddress = 'HUB'
         if truck == 1:
             if trip == 1:
+                # groupedList = ['','','','','','','','']
                 for k in range(40):
                     p = myHash.search(k + 1)
                     if p.ID == 15:
@@ -38,7 +39,7 @@ class Truck():
                 truckPackages.pop(16)
                 truckPackages.insert(1, groupedList[1])
                 truckPackages.pop(16)
-                truckPackages.insert(2, groupedList[2])
+                truckPackages.insert(2, groupedList[7])
                 truckPackages.pop(16)
                 truckPackages.insert(3, groupedList[3])
                 truckPackages.pop(16)
@@ -46,9 +47,9 @@ class Truck():
                 truckPackages.pop(16)
                 truckPackages.insert(5, groupedList[5])
                 truckPackages.pop(16)
-                truckPackages.insert(6, groupedList[6])
+                truckPackages.insert(6, groupedList[2])
                 truckPackages.pop(16)
-                truckPackages.insert(7, groupedList[7])
+                truckPackages.insert(7, groupedList[6])
                 truckPackages.pop(16)
                 return truckPackages
             else:
@@ -192,39 +193,38 @@ class Truck():
         return truckPackages
 
 
-    def truckDeliverPackages(self, distance, address, truckList, truck, startTime, myHash):
-        route = []
-        packageQue = truckList
+    def truckDeliverPackages(self, distance, address, truckList, truck, startTime, myHash, trip):
+        route = truckList
+        # packageQue = truckList
         count = 15
-        time = startTime
         while count > 0:
-            if packageQue[count] == '':
-                packageQue.pop(count)
+            if route[count] == '':
+                route.pop(count)
             count = count - 1
         i = 0
+        '''
         lastAddress = 'HUB'
-        # need to remove the extra code below as teh truck list is already sorted by closest to the HUB.
-        # Need to create a graph of all 16 packages
-        # need to find the shortest path possible while visiting every path
-        while i < len(packageQue):
+        while i < len(packageQue): # need to replace this with a more efficient algorithm to provide the optimal route for each load.
             if len(packageQue) > 0:
-                minDistance = minDistanceFrom(distance, address, lastAddress, packageQue)
-            for package in packageQue:
+
+                
                 if package.address == minDistance:
                     lastAddress = package.address
                     route.append(package)
                     packageQue.remove(package)
                     break
+                
         i += 1
+        '''
         startAddress = 'HUB'
-        totalTruckMiles = truck.miles
-        while len(route) > 0:
-            for i in route:
-                addMiles = distanceBetween(distance, address, startAddress, i.address)
+        totalTruckMiles = 0
+        while i < len(route) :
+            for item in route:
+                addMiles = distanceBetween(distance, address, startAddress, item.address)
                 totalTruckMiles = totalTruckMiles + addMiles
                 timeToDeliver = datetime.timedelta(hours=totalTruckMiles/18)
-                deliveryTime = startTime + timeToDeliver #this works just need to find a way to pass it to the hashtable
-                package = myHash.search(i.ID)
+                deliveryTime = startTime + timeToDeliver
+                package = myHash.search(item.ID)
                 if package.deadline == 'EOD':
                     deadline = datetime.datetime(2022,5,24,17,0,0,0)
                     if deadline > deliveryTime:
@@ -243,8 +243,11 @@ class Truck():
                         package.deliveryStatus = "Delivered on time at: " + str(deliveryTime)
                     elif deadline < deliveryTime:
                         package.deliveryStatus = "LATE delivery at: " + str(deliveryTime)
-                startAddress = i.address
-                route.remove(i)
+                startAddress = item.address
+                route.remove(item)
+            i = i + 1
         if truck.ID == 1:
-             totalTruckMiles = totalTruckMiles + distanceBetween(distance, address, startAddress, 'HUB')
-        return totalTruckMiles
+            if trip == 1:
+                totalTruckMiles = totalTruckMiles + distanceBetween(distance, address, startAddress, 'HUB')
+        return totalTruckMiles, timeToDeliver
+

@@ -43,12 +43,12 @@ def loadTruckLists():
 
 
 def deliverPackages():
-    truck1Miles = truck1.truckDeliverPackages(distance, address, loadTruckLists()[0], truck1, time_obj, myHash)
-    truck1.miles = truck1Miles
-    truck2Miles = truck2.truckDeliverPackages(distance, address, loadTruckLists()[1], truck2, time_obj, myHash)
-    truck2.miles = truck2Miles
-    truck3Miles = truck3.truckDeliverPackages(distance, address, loadTruckLists()[2], truck3, time_obj, myHash)
-    truck3.miles = truck3Miles
+    trip1Miles = truck1.truckDeliverPackages(distance, address, loadTruckLists()[0], truck1, time_obj, myHash, 1)
+    truck1.miles = trip1Miles[0]
+    truck2Miles = truck2.truckDeliverPackages(distance, address, loadTruckLists()[1], truck2, time_obj, myHash, 1)
+    truck2.miles = truck2Miles[0]
+    trip2Miles = truck1.truckDeliverPackages(distance, address, loadTruckLists()[2], truck1, time_obj + trip1Miles[1], myHash, 2)
+    truck1.miles = trip2Miles[0]
 
 
 if __name__ == '__main--':
@@ -94,7 +94,7 @@ while(isExit):
             print('Package', i + 1, ': ', truckList3[i])
     elif option == '2':
         deliverPackages()
-        totalMiles = truck1.miles + truck2.miles + truck3.miles
+        totalMiles = truck1.miles + truck2.miles
         print(totalMiles, 'Total Miles')
     elif option == '3':
         deliverPackages()
