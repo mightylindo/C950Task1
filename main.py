@@ -14,8 +14,10 @@ def getDistanceData():
 
 
 def getPackageData():
-    for i in range(40):
-        print("Package: {}".format(myHash.search(i+1)))
+    packageQue = []
+    for j in range(40):
+        packageQue.append(myHash.search(j + 1))
+    return packageQue
 
 
 def getSpecificPackage(ID):
@@ -71,8 +73,6 @@ time_obj = datetime.datetime(2022,5,24,8,0,0,0)
 
 truck1 = Truck(1, 0)
 truck2 = Truck(2, 0)
-truck3 = Truck(3, 0)
-
 
 isExit = True
 while(isExit):
@@ -80,7 +80,7 @@ while(isExit):
     print('\nOptions:')
     print('1. Get Truck Lists')
     print('2. Get Total Miles')
-    print('3. Get All Package info')
+    print('3. Get Package Status Report')
     print('4. Get Specific Package')
     print('5. Exit Program')
     option = input('Chose an option (1,2,3,4 or 5): ')
@@ -109,12 +109,19 @@ while(isExit):
         print(totalMiles, 'Total Miles')
         inputs = inputs + 1
     elif option == '3':
+        checkTime = (input('Please input time to check: '))
         if inputs == 0:
             changes = deliverPackages()
             for item in changes:
                 package = myHash.search(item.ID)
                 package.deliveryStatus = item.deliveryStatus
-        getPackageData()
+        packages = getPackageData()
+        for thing in packages:
+            if thing.deliveryStatus < checkTime:
+                thing.deliveryStatus = "Delivered at: " + thing.deliveryStatus
+            elif thing.deliveryStatus > checkTime:
+                thing.deliveryStatus = 'En route'
+            print(thing)
         inputs = inputs + 1
     elif option == '4':
         secondOption = int(input('Please input package ID: '))

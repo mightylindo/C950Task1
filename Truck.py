@@ -260,6 +260,7 @@ class Truck():
             totalTruckMiles = totalTruckMiles + addMiles
             timeToDeliver = datetime.timedelta(hours=totalTruckMiles/18)
             deliveryTime = startTime + timeToDeliver
+            '''
             if package.deadline == 'EOD':
                 deadline = datetime.datetime(2022, 5, 24, 17, 0, 0, 0)
                 if deadline > deliveryTime:
@@ -278,6 +279,8 @@ class Truck():
                     package.deliveryStatus = "Delivered on time at: " + str(deliveryTime)
                 elif deadline < deliveryTime:
                     package.deliveryStatus = "LATE delivery at: " + str(deliveryTime)
+            '''
+            package.deliveryStatus = str(deliveryTime)
             startAddress = package.address
             packageChanges.append(package)
             route.remove(package)
