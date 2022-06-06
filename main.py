@@ -43,12 +43,17 @@ def loadTruckLists():
 
 
 def deliverPackages():
-    trip1Miles = truck1.truckDeliverPackages(distance, address, loadTruckLists()[0], truck1, time_obj, myHash, 1)
+    trip1Miles = truck1.truckDeliverPackages(distance, address, loadTruckLists()[0], truck1, time_obj, 1)
     truck1.miles = trip1Miles[0]
-    truck2Miles = truck2.truckDeliverPackages(distance, address, loadTruckLists()[1], truck2, time_obj, myHash, 1)
+    changes1 = trip1Miles[2]
+    truck2Miles = truck2.truckDeliverPackages(distance, address, loadTruckLists()[1], truck2, time_obj, 1)
     truck2.miles = truck2Miles[0]
-    trip2Miles = truck1.truckDeliverPackages(distance, address, loadTruckLists()[2], truck1, time_obj + trip1Miles[1], myHash, 2)
+    changes2 = truck2Miles[2]
+    trip2Miles = truck1.truckDeliverPackages(distance, address, loadTruckLists()[2], truck1, time_obj + trip1Miles[1],2)
     truck1.miles = trip2Miles[0]
+    changes3 = trip2Miles[2]
+    changes = changes1 + changes2 + changes3
+    return changes
 
 
 if __name__ == '__main--':
@@ -71,6 +76,7 @@ truck3 = Truck(3, 0)
 
 isExit = True
 while(isExit):
+    inputs = 0
     print('\nOptions:')
     print('1. Get Truck Lists')
     print('2. Get Total Miles')
@@ -92,17 +98,29 @@ while(isExit):
         print(' Truck 3: ')
         for i in range(16):
             print('Package', i + 1, ': ', truckList3[i])
+            inputs = inputs + 1
     elif option == '2':
-        deliverPackages()
+        if inputs == 0:
+            changes = deliverPackages()
+            for item in changes:
+                package = myHash.search(item.ID)
+                package.deliveryStatus = item.deliveryStatus
         totalMiles = truck1.miles + truck2.miles
         print(totalMiles, 'Total Miles')
+        inputs = inputs + 1
     elif option == '3':
-        deliverPackages()
+        if inputs == 0:
+            changes = deliverPackages()
+            for item in changes:
+                package = myHash.search(item.ID)
+                package.deliveryStatus = item.deliveryStatus
         getPackageData()
+        inputs = inputs + 1
     elif option == '4':
         secondOption = int(input('Please input package ID: '))
         print('ID, Address, City, State, Zipcode, Delivery Deadline, Weight, Special Note, Status')
         print(getSpecificPackage(secondOption))
+        inputs = inputs + 1
     elif option == '5':
         isExit = False
     else:
