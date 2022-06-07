@@ -280,7 +280,7 @@ class Truck():
                 elif deadline < deliveryTime:
                     package.deliveryStatus = "LATE delivery at: " + str(deliveryTime)
             '''
-            package.deliveryStatus = str(deliveryTime)
+            package.deliveryStatus = deliveryTime
             startAddress = package.address
             packageChanges.append(package)
             route.remove(package)

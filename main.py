@@ -13,6 +13,10 @@ def getDistanceData():
         print("Distance: {}".format(distance.search(i, i))) # will always be 0.0 because its going down the line of 0,0; 1,1; 2,2; etc
 
 
+def getAllPackages():
+    for j in range(40):
+        print("Package: {}".format(myHash.search(j+1)))
+
 def getPackageData():
     packageQue = []
     for j in range(40):
@@ -89,13 +93,13 @@ while(isExit):
         truckList1 = loadTruckLists()[0]
         truckList2 = loadTruckLists()[1]
         truckList3 = loadTruckLists()[2]
-        print(' Truck 1: ')
+        print(' Truck 1 Trip 1: ')
         for i in range(16):
             print('Package', i + 1, ': ', truckList1[i])
         print(' Truck 2: ')
         for i in range(16):
             print('Package', i + 1, ': ', truckList2[i])
-        print(' Truck 3: ')
+        print(' Truck 1 Trip 2: ')
         for i in range(16):
             print('Package', i + 1, ': ', truckList3[i])
             inputs = inputs + 1
@@ -106,10 +110,12 @@ while(isExit):
                 package = myHash.search(item.ID)
                 package.deliveryStatus = item.deliveryStatus
         totalMiles = truck1.miles + truck2.miles
+        getAllPackages()
         print(totalMiles, 'Total Miles')
         inputs = inputs + 1
     elif option == '3':
-        checkTime = (input('Please input time to check: '))
+        checkTime = (input('Please input time to check(format HH:MM:SS): '))
+        truck3 = loadTruckLists()[2]
         if inputs == 0:
             changes = deliverPackages()
             for item in changes:
@@ -117,10 +123,13 @@ while(isExit):
                 package.deliveryStatus = item.deliveryStatus
         packages = getPackageData()
         for thing in packages:
-            if thing.deliveryStatus < checkTime:
-                thing.deliveryStatus = "Delivered at: " + thing.deliveryStatus
-            elif thing.deliveryStatus > checkTime:
+            deliveryTime = str(thing.deliveryStatus.time())
+            if deliveryTime < checkTime:
+                thing.deliveryStatus = "Delivered at: " + str(thing.deliveryStatus)
+            elif deliveryTime > checkTime:
                 thing.deliveryStatus = 'En route'
+                if truck3.__contains__(thing):
+                    thing.deliveryStatus = 'At the HUB'
             print(thing)
         inputs = inputs + 1
     elif option == '4':
