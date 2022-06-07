@@ -1,7 +1,6 @@
 import datetime
-from Dijkstra import *
 from DistanceData import *
-from Dijkstra import *
+
 # This is a simple class that creates a truck object
 class Truck():
     def __init__(self, ID, miles):
