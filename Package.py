@@ -2,7 +2,7 @@
 import csv
 
 
-class Package:
+class Package: # a constructor that takes in all attributes of package
     def __init__(self, ID, address, city, state, zipCode, deadline,  weight, specialNote, deliveryStatus):
         self.ID = ID
         self.address = address
@@ -18,6 +18,7 @@ class Package:
     def __str__(self):
         return "%s, %s, %s, %s, %s, %s, %s, %s, %s" % (self.ID, self.address, self.city, self.state, self.zipCode, self.deadline, self.weight, self.specialNote, self.deliveryStatus)
 
+    # A function that reads information from the csv file and creates a package object and adds it into the Hash Table
     def loadPackage(fileName, myHash):
         with open(fileName) as WGUPSPackage:
             packageData = csv.reader(WGUPSPackage, delimiter=',')

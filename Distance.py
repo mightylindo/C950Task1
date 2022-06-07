@@ -1,12 +1,9 @@
-# This is a class that will be involve distance data
+# This is a class that will create the distance objects and that will add them to the distance list.
 import csv
 
 
 class Distance:
-    # need to create a distance object that is comprised of a key coordinate pair and a distance value
-    # need to create a new key coordinate pair and value from the csv file
-    # then need to create the object with the new pair and value and insert it into the list.
-    def __init__(self, row, column, distance):
+    def __init__(self, row, column, distance): # a simple constructor for the distance object
         self.row = row
         self.column = column
         self.distance = distance
@@ -15,6 +12,8 @@ class Distance:
     def __str__(self):
         return "%s,%s, %s" % (self.row, self.column, self.distance)
 
+    # This function reads information from the csv file and creates a new distance object and adds it to the distance
+    # list.
     def loadDistanceData(filename, myList):
         with open(filename) as distanceFile:
             distanceData = csv.reader(distanceFile)

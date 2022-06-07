@@ -6,7 +6,7 @@ class DistanceList:
         rows, columns = (27, 27)
         self.list = [['' for i in range(columns)]for j in range(rows)]
 
-    def append(self, distanceObject):
+    def append(self, distanceObject): # function to add distance objects to the distance list
         row = distanceObject.row
         column = distanceObject.column
         distance = distanceObject.distance
@@ -14,6 +14,7 @@ class DistanceList:
         self.list[row][column] = distance
         self.list[column][row] = distance
 
+    # a search function that require the row and column and returns the value stored there
     def search(self, row, column):
         if self.list[row][column] == '':
             return None
